@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aboubacry Sakho - Data & Business Analyst Freelance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 35, 126, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #64ffda;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #1a237e 0%, #3949ab 50%, #64ffda 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="300" r="100" fill="url(%23a)"/><circle cx="800" cy="200" r="150" fill="url(%23a)"/><circle cx="600" cy="700" r="120" fill="url(%23a)"/></svg>') no-repeat center center/cover;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: slideInUp 1s ease-out 0.6s both;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1a237e;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #64ffda, #1a237e);
+            border-radius: 2px;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            border-color: #64ffda;
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #1a237e, #64ffda);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* About */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .skills-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-check {
+            color: #64ffda;
+            font-weight: bold;
+        }
+
+        /* Contact */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #1a237e;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            transition: border-color 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #64ffda;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #1a237e, #64ffda);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(26, 35, 126, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .skills-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation on scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">AS Analytics</div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="accueil" class="hero">
+        <div class="hero-content">
+            <h1>Aboubacry Sakho</h1>
+            <p class="subtitle">Consultant Data & Business Analyst</p>
+            <p class="subtitle">Spécialisé en solutions data-driven multi-sectorielles</p>
+            <a href="#contact" class="cta-button">Démarrer un projet</a>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title fade-in">Mes Services</h2>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">📊</div>
+                    <h3>Analyse de Données</h3>
+                    <p>Exploration, nettoyage et analyse approfondie de vos données pour révéler des insights cachés et des opportunités d'amélioration.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">📈</div>
+                    <h3>Business Intelligence</h3>
+                    <p>Création de tableaux de bord interactifs et de rapports automatisés pour un suivi en temps réel de vos KPIs.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🎯</div>
+                    <h3>Stratégie Data</h3>
+                    <p>Conseil en stratégie data et accompagnement dans la mise en place d'une culture data-driven au sein de votre organisation.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">⚡</div>
+                    <h3>Optimisation Processus</h3>
+                    <p>Analyse et optimisation de vos processus métier grâce aux données pour améliorer l'efficacité opérationnelle.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🍽️</div>
+                    <h3>Hôtellerie & Restauration</h3>
+                    <p>Solutions data spécialisées pour restaurants et hôtels : optimisation des revenus, analyse de la clientèle, gestion des stocks, et amélioration de l'expérience client.</p>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-icon">🤖</div>
+                    <h3>Intelligence Artificielle</h3>
+                    <p>Évaluation et optimisation de modèles IA/LLM. Développement de solutions prédictives pour entreprises, restaurants, hôtels et professionnels.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title fade-in">À Propos</h2>
+            <div class="about-content">
+                <div class="fade-in">
+                    <h3>Consultant en Data & Intelligence Artificielle</h3>
+                    <p><strong>MBA Big Data</strong> avec +5 ans d'expérience dans la conception de solutions data-driven en environnement multi-sectoriel (retail, énergie, FMCG, IA, hôtellerie-restauration).</p>
+                    <p>Spécialisé dans l'analyse de données complexes, l'automatisation de processus métiers, la migration de systèmes et l'optimisation de la performance opérationnelle. J'accompagne aussi bien les entreprises que les restaurants, hôtels et professionnels dans leur transformation data-driven.</p>
+                    
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <span class="skill-check">✓</span>
+                            <span>Python & SQL Avancés</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-check">✓</span>
+                            <span>Tableau & Power BI</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-check">✓</span>
+                            <span>Machine Learning & IA</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-check">✓</span>
+                            <span>Cloud (GCP, Databricks)</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-check">✓</span>
+                            <span>APIs REST & ETL</span>
+                        </div>
+                        <div class="skill-item">
+                            <span class="skill-check">✓</span>
+                            <span>Migration de Données</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h4 style="color: #1a237e; margin-bottom: 1rem;">Projets récents :</h4>
+                        <ul style="color: #666; line-height: 1.8;">
+                            <li><strong>Scale AI</strong> - Évaluation de modèles LLM et systèmes IA (En cours)</li>
+                            <li><strong>Decathlon Belgium</strong> - Migration marketplace & Business Analysis (2023-2024)</li>
+                            <li><strong>Enedis</strong> - Pilotage performance service Raccordement (2022-2023)</li>
+                            <li><strong>General Mills-Yoplait</strong> - Optimisation bases données produit (2021-2022)</li>
+                        </ul>
+                        
+                        <div style="margin-top: 2rem;">
+                            <a href="https://www.linkedin.com/in/aboubacrysakho" target="_blank" 
+                               style="display: inline-block; background: linear-gradient(45deg, #0077b5, #00a0dc); color: white; padding: 12px 24px; text-decoration: none; border-radius: 25px; font-weight: bold; transition: all 0.3s ease;">
+                                📋 Voir mon profil LinkedIn complet
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="fade-in" style="text-align: center;">
+                    <div style="width: 300px; height: 300px; background: linear-gradient(135deg, #1a237e, #64ffda); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto; color: white; font-size: 4rem;">
+                        👨‍💼
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Contactez-moi</h2>
+            <div class="contact-form fade-in">
+                <h3 style="text-align: center; margin-bottom: 2rem; color: #1a237e;">Discutons de votre projet</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Nom *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Entreprise</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Décrivez votre projet et vos besoins..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Envoyer le message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Aboubacry Sakho - Data & Business Analyst Freelance. Tous droits réservés.</p>
+            <p>📧 abou8sakho@gmail.com | 📱 +33 6 58 06 93 35 | 🌐 <a href="https://www.linkedin.com/in/aboubacrysakho" style="color: #64ffda; text-decoration: none;">LinkedIn</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple form validation and feedback
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            if (name && email && message) {
+                alert('Merci pour votre message ! Je vous recontacterai très prochainement.');
+                this.reset();
+            }
+        });
+
+        // Header background opacity on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrolled = window.pageYOffset;
+            const opacity = Math.min(scrolled / 100, 1);
+            header.style.background = `rgba(26, 35, 126, ${0.95 + (opacity * 0.05)})`;
+        });
+    </script>
+</body>
+</html>
