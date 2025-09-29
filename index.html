@@ -435,7 +435,9 @@
             <h2 class="section-title fade-in">Contactez-moi</h2>
             <div class="contact-form fade-in">
                 <h3 style="text-align: center; margin-bottom: 2rem; color: #1a237e;">Discutons de votre projet</h3>
-                <form id="contactForm">
+                <form id="contactForm" action="https://formspree.io/f/xeorabqg" method="POST">
+                    <input type="hidden" name="_subject" value="Nouveau message depuis le site">
+                    <input type="text" name="_gotcha" style="display:none">
                     <div class="form-group">
                         <label for="name">Nom *</label>
                         <input type="text" id="name" name="name" required>
@@ -467,59 +469,62 @@
 
     <script>
         // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+              e.preventDefault();
+              const target = document.querySelector(this.getAttribute('href'));
+              if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
             });
-        });
+          });
 
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+          // Intersection Observer for fade-in animations
+          const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+          const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+          }, observerOptions);
+          document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
+          // Form submission (Formspree)
+          document.getElementById('contactForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
-            // Simple form validation and feedback
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            
-            if (name && email && message) {
-                alert('Merci pour votre message ! Je vous recontacterai très prochainement.');
-                this.reset();
-            }
-        });
 
-        // Header background opacity on scroll
-        window.addEventListener('scroll', function() {
+            const form = e.target;
+            const formData = new FormData(form);
+            // (optionnel) si tu n'as pas mis le champ caché _subject dans le HTML :
+            // formData.append('_subject', 'Nouveau message depuis le site');
+
+            try {
+              const res = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+              });
+
+              if (res.ok) {
+                alert('Merci pour votre message ! Je vous recontacterai très prochainement.');
+                form.reset();
+              } else {
+                let msg = "Oups, un problème est survenu. Écrivez-moi à abou8sakho@gmail.com.";
+                try {
+                  const data = await res.json();
+                  if (data?.errors?.[0]?.message) msg = data.errors[0].message;
+                } catch {}
+                alert(msg);
+              }
+            } catch (err) {
+              alert("Erreur réseau. Réessayez plus tard ou écrivez-moi par email.");
+            }
+          });
+        
+          // Header background opacity on scroll
+          window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             const scrolled = window.pageYOffset;
             const opacity = Math.min(scrolled / 100, 1);
             header.style.background = `rgba(26, 35, 126, ${0.95 + (opacity * 0.05)})`;
-        });
-    </script>
+          });
+        </script>
 </body>
 </html>
